@@ -488,8 +488,8 @@
                         });
                         // Load file
                         var files = await pfs.readdir(dir);
-                        if (files.includes("genea.ged")) {
-                            var result = new TextDecoder().decode(await pfs.readFile(dir + '/genea.ged'));
+                        if (files.includes("index.ged")) {
+                            var result = new TextDecoder().decode(await pfs.readFile(dir + '/index.ged'));
                             genea.page = "tree";
                             stamboom.load(result);
                             router();
@@ -498,7 +498,7 @@
                                 stamboom.select(selectedPerson);
                             }
                         } else {
-                            alert("Cannot load GEDCOM file. Ensure there is a file called 'genea.ged' in the root of the repository.");
+                            alert("Cannot load GEDCOM file. Ensure there is a file called 'index.ged' in the root of the repository.");
                         }
                     } catch (e) {
                         alert(`Error connecting to Git repository or loading GEDCOM file.\n\nMessage: ${e.message}`);
@@ -540,12 +540,12 @@
                             })
                         });
                         // Save file
-                        await pfs.writeFile(`${dir}/genea.ged`, stamboom.save(), "utf8");
+                        await pfs.writeFile(`${dir}/index.ged`, stamboom.save(), "utf8");
                         // Stage file
                         await git.add({
                             fs,
                             dir,
-                            filepath: "genea.ged"
+                            filepath: "index.ged"
                         });
                         // Commit file
                         let sha = await git.commit({
@@ -555,7 +555,7 @@
                                 name: "Genea.app",
                                 email: "git@genea.app",
                             },
-                            message: `Updated "genea.ged" at ${new Date().toISOString().replace("T", " ").replace("Z", "")}`
+                            message: `Updated "index.ged" at ${new Date().toISOString().replace("T", " ").replace("Z", "")}`
                         })
                         console.log("Committed:", sha);
                         // Push change
