@@ -44,6 +44,8 @@ var Gedcom = (function() {
                     rows[rows.length - 1].value += item.value;
                 } else if (item.tag == "CONT") {
                     rows[rows.length - 1].value += "\n" + item.value;
+                } else if (item.tag == "TRLR") {
+                    // skip trailer
                 } else if (!item.invalid && item.invalid !== "") {
                     rows.push(item);
                 } else if (item.invalid !== "") {
@@ -118,6 +120,8 @@ var Gedcom = (function() {
             }
             return item;
         });
+        // add trailer
+        dataArray.push("0 TRLR")
         // Return data array as string
         return dataArray.join("\n");
     }
