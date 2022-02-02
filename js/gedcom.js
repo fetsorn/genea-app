@@ -195,6 +195,11 @@ var Gedcom = (function() {
                     "level": 1,
                     "tag": "SEX",
                     "value": gender
+                },
+                {
+                    "level": 1,
+                    "tag": "_UID",
+                    "value": crypto.randomUUID()
                 }
             ]
         });
@@ -217,11 +222,16 @@ var Gedcom = (function() {
                 "value": partner2.id
             });
         }
+        var uuidItem = {
+            "level": 1,
+            "tag": "_UID",
+            "value": crypto.randomUUID()
+        }
         this.data.push({
             "level": 0,
             "pointer": relationId,
             "tag": "FAM",
-            "items": partnerItems
+            "items": partnerItems.concat(uuidItem)
         });
         this.data.find(item => item.tag == "INDI" && item.pointer == partner1Id).items.push({
             "level": 1,
