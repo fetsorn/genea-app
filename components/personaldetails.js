@@ -55,6 +55,7 @@ Vue.component('personaldetails', {
                         <li class="collection-item modal-close" v-on:click="addItem('NOTES')">Notes<a class="secondary-content"><i class="material-icons">add</i></a></li>
                         <li class="collection-item modal-close" v-on:click="addItem('TEXT')">Text<a class="secondary-content"><i class="material-icons">add</i></a></li>
                         <li class="collection-header"><h5>Custom</h5></li>
+                        <li class="collection-item modal-close" v-on:click="addItem('_UID')">UUID<a class="secondary-content"><i class="material-icons">add</i></a></li>
                         <li class="collection-item modal-close" v-on:click="addItem('CUSTOM')">Custom<a class="secondary-content"><i class="material-icons">add</i></a></li>
                     </ul>
                 </div>
@@ -103,6 +104,8 @@ Vue.component('personaldetails', {
                 this.person.items.push({ 'level': 1, 'tag': 'NOTE', 'value': '', 'items': [] });
             } else if (item == "TEXT") {
                 this.person.items.push({ 'level': 1, 'tag': 'TEXT', 'value': '', 'items': [] });
+            } else if (item == "_UID") {
+                this.person.items.push({ 'level': 1, 'tag': '_UID', 'value': crypto.randomUUID(), 'items': [] });
             } else if (item == "CUSTOM") {
                 this.advancedMode = true;
                 this.person.items.push({ 'level': 1, 'tag': '', 'value': '', 'items': [] });
@@ -212,6 +215,15 @@ Vue.component('personaldetails-item', {
                         <div class="input-field">
                             <label :for="id" class="active">Place of Burial</label>
                             <input :id="id" type="text" v-model="(detail.items[detail.items.findIndex(x => x.tag=='PLAC')] || {}).value"/>
+                        </div>
+                    </div>
+                </template>
+
+                <template v-else-if="detail.tag=='_UID'">
+                    <div class="col s6">
+                        <div class="input-field">
+                            <label :for="id" class="active">UUID</label>
+                            <input :id="id" type="text" v-model="detail.value"/>
                         </div>
                     </div>
                 </template>
