@@ -35,7 +35,9 @@
           '';
         };
       in {
-        packages = { inherit genea; };
-        defaultPackage = genea;
+        packages = {
+          inherit genea;
+          default = genea;
+        };
       });
 }
